@@ -1,6 +1,7 @@
 // Hearth Channel — X11 UI embedding smoke test
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <string>
 #include <dlfcn.h>
@@ -130,6 +131,10 @@ int main(int argc, char** argv) {
   XTestFakeMotionEvent(display, -1, 452, 712, CurrentTime);
   XTestFakeButtonEvent(display, Button1, True, CurrentTime);
   XTestFakeButtonEvent(display, Button1, False, CurrentTime);
+  // Skin chip: cycles the suite skin and persists the choice.
+  XTestFakeMotionEvent(display, -1, 556, 41, CurrentTime);
+  XTestFakeButtonEvent(display, Button1, True, CurrentTime);
+  XTestFakeButtonEvent(display, Button1, False, CurrentTime);
   // Compressor threshold and ratio knobs.
   XTestFakeMotionEvent(display, -1, 83, 784, CurrentTime);
   XTestFakeButtonEvent(display, Button1, True, CurrentTime);
@@ -150,6 +155,30 @@ int main(int argc, char** argv) {
   if (interactionWrites < 10) {
     printf("FAIL: preset did not write parameters\n");
     return 1;
+  }
+
+  const char* configHome = std::getenv("XDG_CONFIG_HOME");
+  if (configHome && *configHome) {
+    const std::string skinConfig =
+        std::string(configHome) + "/hearth/skins.conf";
+    FILE* config = std::fopen(skinConfig.c_str(), "r");
+    if (!config) {
+      printf("FAIL: skin config was not written: %s\n", skinConfig.c_str());
+      return 1;
+    }
+    char line[128] = {};
+    bool hasDefault = false;
+    while (std::fgets(line, sizeof(line), config)) {
+      if (std::strncmp(line, "default=", 8) == 0) {
+        hasDefault = true;
+        printf("skin config: %s", line);
+      }
+    }
+    std::fclose(config);
+    if (!hasDefault) {
+      printf("FAIL: skin config has no default\n");
+      return 1;
+    }
   }
 
   // Capture the X11 window into a PNG so we can inspect the live result.

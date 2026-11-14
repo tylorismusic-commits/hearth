@@ -101,13 +101,14 @@ if(CAIRO_FOUND AND X11_FOUND AND FREETYPE_FOUND AND EXISTS "${CMAKE_SOURCE_DIR}/
     target_link_libraries(hearth_ui_host_test PRIVATE
       PkgConfig::CAIRO PkgConfig::X11 ${CMAKE_DL_LIBS} ${XTST_LIBRARY})
     if(XVFB_RUN)
+      file(MAKE_DIRECTORY "${CMAKE_BINARY_DIR}/test-config")
       add_test(NAME hearth_ui_host
         COMMAND "${XVFB_RUN}" -a -s "-screen 0 1400x1100x24"
           "$<TARGET_FILE:hearth_ui_host_test>"
           "${CMAKE_BINARY_DIR}/lv2/hearth.lv2/hearthUI.so"
           "${CMAKE_BINARY_DIR}/hearth-ui-live.png")
       set_tests_properties(hearth_ui_host PROPERTIES
-        ENVIRONMENT "LIBGL_ALWAYS_SOFTWARE=1")
+        ENVIRONMENT "LIBGL_ALWAYS_SOFTWARE=1;HEARTH_SKIN=classic;HEARTH_SKIN_DIR=${CMAKE_SOURCE_DIR}/test/skins;XDG_CONFIG_HOME=${CMAKE_BINARY_DIR}/test-config")
     endif()
   endif()
 endif()
@@ -199,6 +200,15 @@ target_include_directories(hearth_dsp_test PRIVATE
   "${CMAKE_SOURCE_DIR}/src/hearth")
 target_compile_features(hearth_dsp_test PRIVATE cxx_std_17)
 add_test(NAME hearth_dsp COMMAND hearth_dsp_test)
+
+add_executable(hearth_theme_test
+  test/test_theme.cpp
+)
+target_include_directories(hearth_theme_test PRIVATE
+  "${CMAKE_SOURCE_DIR}/src/ui")
+target_compile_features(hearth_theme_test PRIVATE cxx_std_17)
+add_test(NAME hearth_theme
+  COMMAND hearth_theme_test "${CMAKE_SOURCE_DIR}/test/skins")
 
 if(LILV_FOUND)
   add_executable(hearth_host_test
