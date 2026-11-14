@@ -2,7 +2,7 @@
 
 [![build](https://github.com/tylorismusic-commits/hearth/actions/workflows/build.yml/badge.svg)](https://github.com/tylorismusic-commits/hearth/actions/workflows/build.yml)
 
-**Version 0.3.0** · [GitHub](https://github.com/tylorismusic-commits/hearth) · GPL-3.0-or-later
+**Version 0.3.1** · [GitHub](https://github.com/tylorismusic-commits/hearth) · GPL-3.0-or-later
 
 **Hearth Channel** is a free, open-source LV2 and CLAP channel strip for Linux, modelled
 on the classic British Class-A consoles: a transformer-coupled input stage, a

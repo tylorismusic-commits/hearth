@@ -242,7 +242,7 @@ struct ClapPlugin {
         "https://github.com/tylorismusic-commits/hearth",
         "",
         "https://github.com/tylorismusic-commits/hearth/issues",
-        "0.3.0",
+        "0.3.1",
         "Neve-inspired channel strip: preamp, EQ, compressor and output fader.",
         features};
     return desc;

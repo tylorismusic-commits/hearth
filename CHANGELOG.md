@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- Preserve per-plugin skin overrides in `~/.config/hearth/skins.conf` when
+  changing the suite default from the header.
+
 ## 0.3.0
 
 - Added the suite-wide skin system. The free Classic theme remains the default,
