@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.2.3
+
+- The IN/BYPASS control is now a normal plugin parameter, not the CLAP host
+  bypass. Toggling it no longer changes REAPER's own FX bypass state.
+
 ## 0.2.2
 
 - CLAP builds now forward the meter ports to the native UI, so the VU and

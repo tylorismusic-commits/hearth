@@ -2,7 +2,7 @@
 
 [![build](https://github.com/tylorismusic-commits/hearth/actions/workflows/build.yml/badge.svg)](https://github.com/tylorismusic-commits/hearth/actions/workflows/build.yml)
 
-**Version 0.2.2** · [GitHub](https://github.com/tylorismusic-commits/hearth) · GPL-3.0-or-later
+**Version 0.2.3** · [GitHub](https://github.com/tylorismusic-commits/hearth) · GPL-3.0-or-later
 
 **Hearth Channel** is a free, open-source LV2 and CLAP channel strip for Linux, modelled
 on the classic British Class-A consoles: a transformer-coupled input stage, a
@@ -41,7 +41,7 @@ codebase.
 - **Hidden output soft clipper** — a +0.2 dBFS ADAA `tanh` ceiling after the
   fader catches hot signals and adds odd-order console-style saturation
   instead of hard digital clipping. No control; bypass stays clean.
-- **Master bypass** — click-free crossfade, ignores the fader when bypassed.
+- **Master bypass** — click-free crossfade, ignores the fader when bypassed, and is separate from the host's own FX bypass.
 - **Preset bar** — five musical starting points plus a deliberately broken
   preset, applied directly through the UI so they work in any host.
 - **Custom X11/Cairo console-strip UI** — a vertical module layout with

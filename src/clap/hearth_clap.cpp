@@ -163,9 +163,6 @@ static clap_param_info_flags paramFlags(const ParamInfo& p) {
   if (p.enumeration) {
     flags |= CLAP_PARAM_IS_STEPPED | CLAP_PARAM_IS_ENUM;
   }
-  if (p.index == PORT_ENABLE) {
-    flags |= CLAP_PARAM_IS_BYPASS;
-  }
   return flags;
 }
 
@@ -245,7 +242,7 @@ struct ClapPlugin {
         "https://github.com/tylorismusic-commits/hearth",
         "",
         "https://github.com/tylorismusic-commits/hearth/issues",
-        "0.2.2",
+        "0.2.3",
         "Neve-inspired channel strip: preamp, EQ, compressor and output fader.",
         features};
     return desc;

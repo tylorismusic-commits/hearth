@@ -1384,7 +1384,7 @@ static void drawHeader(cairo_t* cr, const State& s) {
   drawPresetBar(cr, s);
   textAt(cr, 430.0, 42.0, "CLASS A", 6.5, true, kMuted);
   textAt(cr, 430.0, 52.0, "CONSOLE", 6.5, false, kMuted);
-  textAt(cr, 430.0, 62.0, "v0.2.2", 5.5, false, kMuted);
+  textAt(cr, 430.0, 62.0, "v0.2.3", 5.5, false, kMuted);
 
   // brushed-metal strip along the bottom of the header
   cairo_pattern_t* strip = cairo_pattern_create_linear(0, 76, 0, 80);
