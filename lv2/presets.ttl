@@ -1,0 +1,438 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix pset: <http://lv2plug.in/ns/ext/presets#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+@prefix hearth: <https://github.com/tylorismusic-commits/hearth> .
+
+hearth:preset_vocal
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tylorismusic-commits/hearth> ;
+	rdfs:label "Vocal - Air & Control" ;
+	rdfs:comment "Bright, controlled vocal chain with a gentle low cut, wide mid lift and parallel-style compression." ;
+			lv2:port [
+			lv2:symbol "input_gain" ; pset:value 4
+		] ,
+		lv2:port [
+			lv2:symbol "drive" ; pset:value 2
+		] ,
+		lv2:port [
+			lv2:symbol "character" ; pset:value 30
+		] ,
+		lv2:port [
+			lv2:symbol "hpf" ; pset:value 80
+		] ,
+		lv2:port [
+			lv2:symbol "low_freq" ; pset:value 110
+		] ,
+		lv2:port [
+			lv2:symbol "low_gain" ; pset:value -1
+		] ,
+		lv2:port [
+			lv2:symbol "mid_freq" ; pset:value 3200
+		] ,
+		lv2:port [
+			lv2:symbol "mid_gain" ; pset:value 2
+		] ,
+		lv2:port [
+			lv2:symbol "mid_q" ; pset:value 0.5
+		] ,
+		lv2:port [
+			lv2:symbol "high_freq" ; pset:value 12000
+		] ,
+		lv2:port [
+			lv2:symbol "high_gain" ; pset:value 2
+		] ,
+		lv2:port [
+			lv2:symbol "comp_on" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "comp_threshold" ; pset:value -24
+		] ,
+		lv2:port [
+			lv2:symbol "comp_ratio" ; pset:value 3
+		] ,
+		lv2:port [
+			lv2:symbol "comp_attack" ; pset:value 5
+		] ,
+		lv2:port [
+			lv2:symbol "comp_release" ; pset:value 150
+		] ,
+		lv2:port [
+			lv2:symbol "comp_knee" ; pset:value 6
+		] ,
+		lv2:port [
+			lv2:symbol "comp_makeup" ; pset:value 3
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mix" ; pset:value 100
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mode" ; pset:value 0
+		] ,
+		lv2:port [
+			lv2:symbol "output_gain" ; pset:value -2
+		] ,
+		lv2:port [
+			lv2:symbol "enable" ; pset:value 1
+		] .
+
+hearth:preset_drum_bus
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tylorismusic-commits/hearth> ;
+	rdfs:label "Drum Bus - Glue" ;
+	rdfs:comment "Slow attack and a parallel blend for punchy drum glue." ;
+			lv2:port [
+			lv2:symbol "input_gain" ; pset:value 2
+		] ,
+		lv2:port [
+			lv2:symbol "drive" ; pset:value 3
+		] ,
+		lv2:port [
+			lv2:symbol "character" ; pset:value 40
+		] ,
+		lv2:port [
+			lv2:symbol "hpf" ; pset:value 0
+		] ,
+		lv2:port [
+			lv2:symbol "low_freq" ; pset:value 60
+		] ,
+		lv2:port [
+			lv2:symbol "low_gain" ; pset:value 1.5
+		] ,
+		lv2:port [
+			lv2:symbol "mid_freq" ; pset:value 700
+		] ,
+		lv2:port [
+			lv2:symbol "mid_gain" ; pset:value -2
+		] ,
+		lv2:port [
+			lv2:symbol "mid_q" ; pset:value 0.45
+		] ,
+		lv2:port [
+			lv2:symbol "high_freq" ; pset:value 12000
+		] ,
+		lv2:port [
+			lv2:symbol "high_gain" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "comp_on" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "comp_threshold" ; pset:value -20
+		] ,
+		lv2:port [
+			lv2:symbol "comp_ratio" ; pset:value 4
+		] ,
+		lv2:port [
+			lv2:symbol "comp_attack" ; pset:value 20
+		] ,
+		lv2:port [
+			lv2:symbol "comp_release" ; pset:value 200
+		] ,
+		lv2:port [
+			lv2:symbol "comp_knee" ; pset:value 8
+		] ,
+		lv2:port [
+			lv2:symbol "comp_makeup" ; pset:value 3
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mix" ; pset:value 70
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mode" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "output_gain" ; pset:value -3
+		] ,
+		lv2:port [
+			lv2:symbol "enable" ; pset:value 1
+		] .
+
+hearth:preset_bass_di
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tylorismusic-commits/hearth> ;
+	rdfs:label "Bass DI - Weight" ;
+	rdfs:comment "Transformer weight and a broad low-mid lift for direct bass." ;
+			lv2:port [
+			lv2:symbol "input_gain" ; pset:value 6
+		] ,
+		lv2:port [
+			lv2:symbol "drive" ; pset:value 4
+		] ,
+		lv2:port [
+			lv2:symbol "character" ; pset:value 45
+		] ,
+		lv2:port [
+			lv2:symbol "hpf" ; pset:value 30
+		] ,
+		lv2:port [
+			lv2:symbol "low_freq" ; pset:value 60
+		] ,
+		lv2:port [
+			lv2:symbol "low_gain" ; pset:value 3
+		] ,
+		lv2:port [
+			lv2:symbol "mid_freq" ; pset:value 700
+		] ,
+		lv2:port [
+			lv2:symbol "mid_gain" ; pset:value -2.5
+		] ,
+		lv2:port [
+			lv2:symbol "mid_q" ; pset:value 0.45
+		] ,
+		lv2:port [
+			lv2:symbol "high_freq" ; pset:value 10000
+		] ,
+		lv2:port [
+			lv2:symbol "high_gain" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "comp_on" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "comp_threshold" ; pset:value -26
+		] ,
+		lv2:port [
+			lv2:symbol "comp_ratio" ; pset:value 3
+		] ,
+		lv2:port [
+			lv2:symbol "comp_attack" ; pset:value 15
+		] ,
+		lv2:port [
+			lv2:symbol "comp_release" ; pset:value 300
+		] ,
+		lv2:port [
+			lv2:symbol "comp_knee" ; pset:value 6
+		] ,
+		lv2:port [
+			lv2:symbol "comp_makeup" ; pset:value 4
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mix" ; pset:value 100
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mode" ; pset:value 0
+		] ,
+		lv2:port [
+			lv2:symbol "output_gain" ; pset:value -2
+		] ,
+		lv2:port [
+			lv2:symbol "enable" ; pset:value 1
+		] .
+
+hearth:preset_mix_bus
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tylorismusic-commits/hearth> ;
+	rdfs:label "Mix Bus - British Glue" ;
+	rdfs:comment "Subtle feedback compression and broad tone shaping for a mix bus." ;
+			lv2:port [
+			lv2:symbol "input_gain" ; pset:value 0
+		] ,
+		lv2:port [
+			lv2:symbol "drive" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "character" ; pset:value 25
+		] ,
+		lv2:port [
+			lv2:symbol "hpf" ; pset:value 20
+		] ,
+		lv2:port [
+			lv2:symbol "low_freq" ; pset:value 110
+		] ,
+		lv2:port [
+			lv2:symbol "low_gain" ; pset:value 0.5
+		] ,
+		lv2:port [
+			lv2:symbol "mid_freq" ; pset:value 1600
+		] ,
+		lv2:port [
+			lv2:symbol "mid_gain" ; pset:value -0.5
+		] ,
+		lv2:port [
+			lv2:symbol "mid_q" ; pset:value 0.4
+		] ,
+		lv2:port [
+			lv2:symbol "high_freq" ; pset:value 12000
+		] ,
+		lv2:port [
+			lv2:symbol "high_gain" ; pset:value 0.5
+		] ,
+		lv2:port [
+			lv2:symbol "comp_on" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "comp_threshold" ; pset:value -16
+		] ,
+		lv2:port [
+			lv2:symbol "comp_ratio" ; pset:value 2
+		] ,
+		lv2:port [
+			lv2:symbol "comp_attack" ; pset:value 30
+		] ,
+		lv2:port [
+			lv2:symbol "comp_release" ; pset:value 400
+		] ,
+		lv2:port [
+			lv2:symbol "comp_knee" ; pset:value 10
+		] ,
+		lv2:port [
+			lv2:symbol "comp_makeup" ; pset:value 2
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mix" ; pset:value 100
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mode" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "output_gain" ; pset:value -1
+		] ,
+		lv2:port [
+			lv2:symbol "enable" ; pset:value 1
+		] .
+
+hearth:preset_acoustic
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tylorismusic-commits/hearth> ;
+	rdfs:label "Acoustic - Natural" ;
+	rdfs:comment "Open, natural acoustic shaping with gentle control." ;
+			lv2:port [
+			lv2:symbol "input_gain" ; pset:value 3
+		] ,
+		lv2:port [
+			lv2:symbol "drive" ; pset:value 2
+		] ,
+		lv2:port [
+			lv2:symbol "character" ; pset:value 35
+		] ,
+		lv2:port [
+			lv2:symbol "hpf" ; pset:value 80
+		] ,
+		lv2:port [
+			lv2:symbol "low_freq" ; pset:value 110
+		] ,
+		lv2:port [
+			lv2:symbol "low_gain" ; pset:value -1
+		] ,
+		lv2:port [
+			lv2:symbol "mid_freq" ; pset:value 1600
+		] ,
+		lv2:port [
+			lv2:symbol "mid_gain" ; pset:value 1.5
+		] ,
+		lv2:port [
+			lv2:symbol "mid_q" ; pset:value 0.5
+		] ,
+		lv2:port [
+			lv2:symbol "high_freq" ; pset:value 12000
+		] ,
+		lv2:port [
+			lv2:symbol "high_gain" ; pset:value 1.5
+		] ,
+		lv2:port [
+			lv2:symbol "comp_on" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "comp_threshold" ; pset:value -22
+		] ,
+		lv2:port [
+			lv2:symbol "comp_ratio" ; pset:value 2.5
+		] ,
+		lv2:port [
+			lv2:symbol "comp_attack" ; pset:value 8
+		] ,
+		lv2:port [
+			lv2:symbol "comp_release" ; pset:value 180
+		] ,
+		lv2:port [
+			lv2:symbol "comp_knee" ; pset:value 6
+		] ,
+		lv2:port [
+			lv2:symbol "comp_makeup" ; pset:value 2
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mix" ; pset:value 100
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mode" ; pset:value 0
+		] ,
+		lv2:port [
+			lv2:symbol "output_gain" ; pset:value -1.5
+		] ,
+		lv2:port [
+			lv2:symbol "enable" ; pset:value 1
+		] .
+
+hearth:preset_broken
+	a pset:Preset ;
+	lv2:appliesTo <https://github.com/tylorismusic-commits/hearth> ;
+	rdfs:label "Broken Console" ;
+	rdfs:comment "Everything at once: maximum drive, extreme EQ, crushed feedback compression and output into the clipper." ;
+			lv2:port [
+			lv2:symbol "input_gain" ; pset:value 10
+		] ,
+		lv2:port [
+			lv2:symbol "drive" ; pset:value 12
+		] ,
+		lv2:port [
+			lv2:symbol "character" ; pset:value 100
+		] ,
+		lv2:port [
+			lv2:symbol "hpf" ; pset:value 160
+		] ,
+		lv2:port [
+			lv2:symbol "low_freq" ; pset:value 60
+		] ,
+		lv2:port [
+			lv2:symbol "low_gain" ; pset:value 8
+		] ,
+		lv2:port [
+			lv2:symbol "mid_freq" ; pset:value 700
+		] ,
+		lv2:port [
+			lv2:symbol "mid_gain" ; pset:value 9
+		] ,
+		lv2:port [
+			lv2:symbol "mid_q" ; pset:value 1.5
+		] ,
+		lv2:port [
+			lv2:symbol "high_freq" ; pset:value 16000
+		] ,
+		lv2:port [
+			lv2:symbol "high_gain" ; pset:value 8
+		] ,
+		lv2:port [
+			lv2:symbol "comp_on" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "comp_threshold" ; pset:value -50
+		] ,
+		lv2:port [
+			lv2:symbol "comp_ratio" ; pset:value 20
+		] ,
+		lv2:port [
+			lv2:symbol "comp_attack" ; pset:value 0.1
+		] ,
+		lv2:port [
+			lv2:symbol "comp_release" ; pset:value 20
+		] ,
+		lv2:port [
+			lv2:symbol "comp_knee" ; pset:value 0
+		] ,
+		lv2:port [
+			lv2:symbol "comp_makeup" ; pset:value 15
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mix" ; pset:value 100
+		] ,
+		lv2:port [
+			lv2:symbol "comp_mode" ; pset:value 1
+		] ,
+		lv2:port [
+			lv2:symbol "output_gain" ; pset:value 6
+		] ,
+		lv2:port [
+			lv2:symbol "enable" ; pset:value 1
+		] .
+
