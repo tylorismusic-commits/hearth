@@ -2,11 +2,13 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include <cmath>
 #include <cstdint>
+#include <cstring>
 #include <new>
 
 #include <lv2/core/lv2.h>
 
 #include "channel_strip.hpp"
+#include "inline_display.hpp"
 #include "param_info.hpp"
 #include "params.hpp"
 
@@ -18,6 +20,9 @@ public:
   float sampleRate = 48000.0f;
   ChannelStrip strip;
   Params params;
+  InlineDisplay display;
+  const InlineDisplayQueueDraw* queueDraw = nullptr;
+  uint32_t drawCounter = 0;
 };
 
 static const ParamInfo& infoFor(uint32_t index) noexcept {
@@ -88,11 +93,17 @@ extern "C" LV2_Handle lv2_hearth_instantiate(const LV2_Descriptor* descriptor,
                                            const LV2_Feature* const* features) {
   (void)descriptor;
   (void)bundle_path;
-  (void)features;
 
   hearth::HearthInstance* self = new (std::nothrow) hearth::HearthInstance();
   if (!self) {
     return nullptr;
+  }
+  for (const LV2_Feature* const* f = features; f && *f; ++f) {
+    if (!std::strcmp((*f)->URI, hearth::kInlineDisplayQueueDrawURI) &&
+        (*f)->data) {
+      self->queueDraw = static_cast<const hearth::InlineDisplayQueueDraw*>(
+          static_cast<const void*>((*f)->data));
+    }
   }
   self->sampleRate = std::max(8000.0f, static_cast<float>(rate));
   self->strip.prepare(self->sampleRate);
@@ -100,6 +111,7 @@ extern "C" LV2_Handle lv2_hearth_instantiate(const LV2_Descriptor* descriptor,
   hearth::readParams(self);
   self->strip.setTargets(self->params);
   self->strip.reset();
+  self->display.setGainReductionDb(0.0f);
   return self;
 }
 
@@ -122,6 +134,7 @@ extern "C" void lv2_hearth_activate(LV2_Handle handle) {
   hearth::readParams(self);
   self->strip.setTargets(self->params);
   self->strip.reset();
+  self->display.setGainReductionDb(0.0f);
 }
 
 extern "C" void lv2_hearth_run(LV2_Handle handle, uint32_t sampleCount) {
@@ -152,6 +165,12 @@ extern "C" void lv2_hearth_run(LV2_Handle handle, uint32_t sampleCount) {
   if (meterOut) {
     *meterOut = outDb;
   }
+
+  self->display.setGainReductionDb(std::max(0.0f, -grDb));
+  if (self->queueDraw && self->queueDraw->queue_draw &&
+      ((self->drawCounter++ & 31u) == 0u)) {
+    self->queueDraw->queue_draw(self->queueDraw->handle);
+  }
 }
 
 extern "C" void lv2_hearth_deactivate(LV2_Handle handle) {
@@ -160,14 +179,28 @@ extern "C" void lv2_hearth_deactivate(LV2_Handle handle) {
     return;
   }
   self->strip.reset();
+  self->display.setGainReductionDb(0.0f);
 }
 
 extern "C" void lv2_hearth_cleanup(LV2_Handle handle) {
   delete static_cast<hearth::HearthInstance*>(handle);
 }
 
+static hearth::InlineDisplaySurface* renderInlineDisplay(void* instance,
+                                                         uint32_t width,
+                                                         uint32_t height) {
+  hearth::HearthInstance* self =
+      static_cast<hearth::HearthInstance*>(instance);
+  return self ? self->display.render(width, height) : nullptr;
+}
+
+static const hearth::InlineDisplayInterface hearthDisplayInterface = {
+    &renderInlineDisplay};
+
 extern "C" const void* lv2_hearth_extension_data(const char* uri) {
-  (void)uri;
+  if (!std::strcmp(uri, hearth::kInlineDisplayInterfaceURI)) {
+    return &hearthDisplayInterface;
+  }
   return nullptr;
 }
 

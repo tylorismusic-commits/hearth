@@ -2,9 +2,9 @@
 
 [![build](https://github.com/tylorismusic-commits/hearth/actions/workflows/build.yml/badge.svg)](https://github.com/tylorismusic-commits/hearth/actions/workflows/build.yml)
 
-**Version 0.2.0** · [GitHub](https://github.com/tylorismusic-commits/hearth) · GPL-3.0-or-later
+**Version 0.2.1** · [GitHub](https://github.com/tylorismusic-commits/hearth) · GPL-3.0-or-later
 
-**Hearth Channel** is a free, open-source LV2 channel strip for Linux, modelled
+**Hearth Channel** is a free, open-source LV2 and CLAP channel strip for Linux, modelled
 on the classic British Class-A consoles: a transformer-coupled input stage, a
 three-band inductor-style EQ, a diode-bridge-flavoured compressor, and an output
 fader.
@@ -34,6 +34,10 @@ codebase.
   low-end response. Soft knee, 20 ms–2 s release range.
 - **Output fader** — −60 to +12 dB, plus gain-reduction and output-level meter
   ports.
+- **Host gain-reduction metering** — the LV2 build publishes GR on its
+  `gr_meter` port and draws it in Ardour's mixer through the Harrison
+  inline-display extension. The CLAP build reports GR through
+  `clap.gain-adjustment-metering`, so REAPER can draw it on the track meter.
 - **Hidden output soft clipper** — a +0.2 dBFS ADAA `tanh` ceiling after the
   fader catches hot signals and adds odd-order console-style saturation
   instead of hard digital clipping. No control; bypass stays clean.
@@ -70,7 +74,9 @@ Requirements:
 - `lv2` development headers
 - `cairo` and `x11` development headers (for the custom UI)
 - `lilv` (tests only)
-- `xvfb` (UI integration test only)
+- `xvfb` (UI integration tests only)
+- CLAP headers are vendored in `third_party/clap` (MIT), so no external CLAP
+  SDK is required
 
 ```sh
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
@@ -78,12 +84,14 @@ cmake --build build -j
 ctest --test-dir build --output-on-failure
 ```
 
-The plugin bundle is produced in `build/lv2/hearth.lv2/`.
+The LV2 bundle is produced in `build/lv2/hearth.lv2/`. The CLAP build is
+produced in `build/clap/Hearth.clap` with its `Hearth.resources` directory.
 
 ### Install for the current user
 
 ```sh
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DLV2_DIR="$HOME/.lv2"
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+  -DLV2_DIR="$HOME/.lv2" -DCLAP_DIR="$HOME/.clap"
 cmake --build build -j
 cmake --install build
 ```
@@ -91,16 +99,19 @@ cmake --install build
 ### Install system-wide
 
 ```sh
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DLV2_DIR="/usr/lib/lv2"
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release \
+  -DLV2_DIR="/usr/lib/lv2" -DCLAP_DIR="/usr/lib/clap"
 cmake --build build -j
 sudo cmake --install build
 ```
 
 The bundle contains:
 
-- `hearth.so` — the DSP plugin
+- `hearth.so` — the LV2 DSP plugin
 - `hearthUI.so` — the X11/Cairo UI (built when Cairo and X11 are available)
 - `manifest.ttl`, `hearth.ttl`, `presets.ttl`
+- `Hearth.clap` and `Hearth.resources/` — the CLAP build, which uses the same
+  DSP and the same X11 UI
 
 ## Using it
 
@@ -121,14 +132,24 @@ After installing, rescan plugins in your host (or restart it) and look for
   scales with the window). If an older broken build is in the "plug-ins that
   failed to scan" list, re-scan the LV2 paths (or clear that entry) so REAPER
   retries it.
+- **REAPER gain reduction** — install the CLAP build and use
+  **CLAP: Hearth Channel (Tylor)**. Enable **Display gain reduction for
+  plug-ins that support it** in *Preferences > Appearance > Track/Send
+  Defaults* (for new tracks) or right-click the track meter and enable it for
+  an existing track. REAPER then draws the GR bar on the track meter in the
+  mixer. LV2 itself has no standard host-meter GR API, which is why the LV2
+  build reports GR through its output port and the Ardour inline display
+  instead.
+- **Ardour gain reduction** — use the LV2 build; Ardour draws the live GR
+  meter in the mixer strip through the inline-display extension.
 
 The plugin is stereo. Mono tracks in most hosts are automatically fanned to
 both inputs (or can be wired that way with the host's pin/connection editor),
 so it works on vocals, bass, and other mono sources as well as buses.
 
-Factory presets are exposed through the host's preset menu. The four bundled
-presets are *Vocal - Air and Control*, *Drum Bus - Glue*, *Bass DI - Weight*,
-and *Mix Bus - British Glue*.
+Factory presets are exposed through the host's preset menu. The six bundled
+presets include *Vocal - Air and Control*, *Drum Bus - Glue*, *Bass DI -
+Weight*, *Mix Bus - British Glue*, *Acoustic - Natural*, and *Broken Console*.
 
 ## Presets
 
@@ -247,6 +268,9 @@ side-chain high-pass, so bass energy is less likely to pump the whole mix.
 - `ui_host_test.cpp` — embeds the X11 UI in a real window under Xvfb, sends
   pointer events, checks that the UI writes parameter changes back to the host,
   and captures a screenshot.
+- `clap_host_test.cpp` — loads the built CLAP, processes audio, checks that
+  gain reduction is reported through `clap.gain-adjustment-metering`, and
+  verifies that the X11 UI embeds in a host window.
 
 ## Credits
 
@@ -256,6 +280,8 @@ side-chain high-pass, so bass energy is less likely to pump the whole mix.
 - The knob artwork is original, generated by `assets/make_knob.py`, and is
   included in the GPL-3.0-or-later source.
 - The brushed-metal texture is generated by `assets/make_metal.py`.
+- The CLAP headers in `third_party/clap` are MIT-licensed; see
+  `third_party/clap/LICENSE.md`.
 
 ## License
 

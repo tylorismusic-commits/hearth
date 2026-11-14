@@ -5,6 +5,7 @@
 
 #include <lilv/lilv.h>
 
+#include "inline_display.hpp"
 #include "param_info.hpp"
 
 using namespace hearth;
@@ -115,6 +116,19 @@ int main(int argc, char** argv) {
   }
   check(finite, "host run produces finite audio");
   check(std::isfinite(ctrl[PORT_METER_OUT]), "output meter finite");
+
+  // The Ardour/Harrison inline display extension must be available so the
+  // host can draw gain reduction in the mixer.
+  {
+    const auto* iface = static_cast<const InlineDisplayInterface*>(
+        lilv_instance_get_extension_data(instance, kInlineDisplayInterfaceURI));
+    check(iface && iface->render, "inline display extension available");
+    if (iface && iface->render) {
+      auto* surface = iface->render(lilv_instance_get_handle(instance), 320, 40);
+      check(surface && surface->width == 320 && surface->height == 40,
+            "inline display renders a surface");
+    }
+  }
 
   // 2) Flat chain with the compressor off should be close to unity.
   for (uint32_t i = 4; i < PORT_COUNT; ++i) {

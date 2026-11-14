@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.2.1
+
+- Added the Harrison/Ardour inline-display extension with a live
+  gain-reduction bar in the mixer.
+- Added a CLAP build that uses the same DSP and the same X11 UI, and reports
+  gain reduction through `clap.gain-adjustment-metering` so REAPER can display
+  it on the track meter.
+- Added a CLAP host test covering gain-reduction reporting and UI embedding.
+
 ## 0.2.0
 
 - New vertical console-strip UI with a metal chassis, recessed panels,

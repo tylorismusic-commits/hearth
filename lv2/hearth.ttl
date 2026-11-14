@@ -1,6 +1,7 @@
 @prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
 @prefix doap:  <http://usefulinc.com/ns/doap#> .
 @prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix idpy:  <http://harrisonconsoles.com/lv2/inlinedisplay#> .
 @prefix opts: <http://lv2plug.in/ns/ext/options#> .
 @prefix pg:   <http://lv2plug.in/ns/ext/port-groups#> .
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
@@ -16,9 +17,10 @@
 	lv2:binary <hearth.so> ;
 	lv2:majorVersion 0 ;
 	lv2:minorVersion 2 ;
-	lv2:microVersion 0 ;
+	lv2:microVersion 1 ;
 	lv2:project <https://github.com/tylorismusic-commits/hearth> ;
-	lv2:optionalFeature lv2:hardRTCapable ;
+	lv2:optionalFeature lv2:hardRTCapable , idpy:queue_draw , idpy:in_gui ;
+	lv2:extensionData idpy:interface ;
 	doap:license <https://spdx.org/licenses/GPL-3.0-or-later.html> ;
 	doap:name "Hearth Channel" ;
 	doap:description "Free and open source channel strip modelled on classic British Class-A consoles." ;
