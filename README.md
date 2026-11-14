@@ -2,7 +2,7 @@
 
 [![build](https://github.com/tylorismusic-commits/hearth/actions/workflows/build.yml/badge.svg)](https://github.com/tylorismusic-commits/hearth/actions/workflows/build.yml)
 
-**Version 0.2.3** · [GitHub](https://github.com/tylorismusic-commits/hearth) · GPL-3.0-or-later
+**Version 0.3.0** · [GitHub](https://github.com/tylorismusic-commits/hearth) · GPL-3.0-or-later
 
 **Hearth Channel** is a free, open-source LV2 and CLAP channel strip for Linux, modelled
 on the classic British Class-A consoles: a transformer-coupled input stage, a
@@ -112,6 +112,14 @@ The bundle contains:
 - `manifest.ttl`, `hearth.ttl`, `presets.ttl`
 - `Hearth.clap` and `Hearth.resources/` — the CLAP build, which uses the same
   DSP and the same X11 UI
+
+## Skins
+
+The swatch or `SKIN` chip in the plugin header cycles the suite skin. The free
+Classic theme is built in. Additional skins can be installed in
+`~/.local/share/hearth/skins/<skin>/` with a `palette.ini`; the selection is
+shared across the Hearth suite and stored in `~/.config/hearth/skins.conf`.
+Skins change only the UI colors and artwork, never the audio or project state.
 
 ## Using it
 

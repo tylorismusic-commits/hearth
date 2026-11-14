@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.0
+
+- Added the suite-wide skin system. The free Classic theme remains the default,
+  and the header swatch cycles through any installed skins.
+- Skin selection is user-level, shared across the suite, and persists in
+  `~/.config/hearth/skins.conf`. It never changes audio, presets, or project
+  state.
+- Added the loader for Catppuccin Mocha, Studio 4000, Tokyo Night, and
+  user-created skins.
+
 ## 0.2.3
 
 - The IN/BYPASS control is now a normal plugin parameter, not the CLAP host
